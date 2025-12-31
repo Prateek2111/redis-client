@@ -26,11 +26,13 @@ export default function Home() {
   useEffect(() => {
     const fetchImages = async () => {
       const startTime = performance.now();
+      const apiUrl = process.env.NEXT_PUBLIC_API_URL || 'https://redis-client-uyin.onrender.com';
+      
       try {
         setLoading(true);
         setError(null);
 
-        const response = await fetch('http://localhost:5000/api/images', {
+        const response = await fetch(`${apiUrl}/api/images`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
