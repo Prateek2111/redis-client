@@ -11,8 +11,9 @@ interface CloudinaryImage {
 
 interface ApiResponse {
   success: boolean;
-  cached: boolean;
-  data: CloudinaryImage[];
+  cached?: boolean;
+  data?: CloudinaryImage[];
+  error?: string;
 }
 
 export default function Home() {
@@ -42,9 +43,9 @@ export default function Home() {
 
         const data: ApiResponse = await response.json();
 
-        if (data.success) {
+        if (data.success && data.data) {
           setImages(data.data);
-          setCached(data.cached);
+          setCached(data.cached || false);
           const endTime = performance.now();
           setLoadTime(Math.round(endTime - startTime));
         } else {
